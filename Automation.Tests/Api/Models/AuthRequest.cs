@@ -1,0 +1,7 @@
+namespace Automation.Tests.Api.Models;
+
+public class AuthRequest
+{
+    public string Username { get; set; } = "";
+    public string Password { get; set; } = "";
+}
