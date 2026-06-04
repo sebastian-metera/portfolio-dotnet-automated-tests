@@ -3,14 +3,9 @@ using Automation.Tests.Api.Models;
 
 namespace Automation.Tests.Api.Clients;
 
-public class AuthApiClient
+public class AuthApiClient(HttpClient client)
 {
-    private readonly HttpClient _client;
-
-    public AuthApiClient(HttpClient client)
-    {
-        _client = client;
-    }
+    private readonly HttpClient _client = client;
 
     public async Task<HttpResponseMessage> CreateToken(AuthRequest request)
     {
