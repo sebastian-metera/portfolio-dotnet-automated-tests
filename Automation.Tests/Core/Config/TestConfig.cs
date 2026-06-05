@@ -3,7 +3,10 @@ namespace Automation.Tests.Core.Config;
 public class TestConfig
 {
     public string ApiBaseUrl { get; set; } = "https://restful-booker.herokuapp.com";
-    public string UiBaseUrl { get; set; } = "https://www.saucedemo.com";
+    public string UiBaseUrl { get; set; } = "https://sauce-demo.myshopify.com";
+
+    //This is something to check at some point as UI tests when shopping is covered enough
+    // public string UiBaseUrl { get; set; } = "https://www.saucedemo.com";
     public string Browser { get; set; } = "Chromium";
     public bool Headless { get; set; } = true;
     public int TimeoutMs { get; set; } = 30000;

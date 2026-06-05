@@ -7,6 +7,7 @@ using Automation.Tests.Core.Fixtures;
 
 namespace Automation.Tests.Api.Tests;
 
+//TODO: add assertions for headers
 public class BookingTests : ApiTestBase
 {
     private BookingApiClient _bookingApi = null!;
@@ -57,7 +58,6 @@ public class BookingTests : ApiTestBase
 
         TestContext.Progress.WriteLine($"Status: {response.StatusCode}");
         TestContext.Progress.WriteLine($"Response body: {responseBody}");
-
 
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         Assert.That(responseBody, Does.Contain("bookingid").IgnoreCase);
