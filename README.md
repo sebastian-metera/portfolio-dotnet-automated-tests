@@ -4,10 +4,15 @@ A place to store automated tests code performed on public demo pages:
 - UI: https://sauce-demo.myshopify.com
 
 ---
-**API tests use:**
-- NUnit
-- API Client Pattern + Test Data Builder
+## Tech stack
 
-**UI tests use:**
-- Playwright .NET
-- Page Object Model/Pattern
+**API automation**
+- NUnit
+- HttpClient
+- API Client Pattern
+- Test Data Builder
+
+**UI automation**
+- NUnit
+- Playwright for .NET
+- Page Object Model / Pattern
