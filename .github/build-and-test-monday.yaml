@@ -1,0 +1,77 @@
+name: build and test on Monday # to let QAs know the app is up and running, ready for testing
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+
+env:
+  DOTNET_VERSION: '17.14.0' # The .NET SDK version to use
+
+
+jobs:
+  build:
+
+    name: build-and-test-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install dependencies
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+  dev-checks:
+
+    name: Check codebase
+    needs: build
+
+    steps:
+      - name: Perform unit tests (dev)
+
+      - name: Perform unit tests (QA)
+
+      - name: Static code analysis # TODO: may fail
+
+      - name: BE dependency check
+
+      - name: FE package audit # yarn audit
+
+  deploy-and-seed-test-env: # unless the all checks may be done virtually (in temp container?) then deploy should bes next to last, but seed remain
+
+    name: Deploy and seed on test env
+    needs: dev-checks
+    steps:
+      - name: Deploy on test env
+
+      - name: Seed data
+
+  automated-test-full:
+
+    name: Perform API and UI smoke tests
+    needs: deploy-and-seed-test-env
+    steps:
+      - name: Full Tests
+        run: dotnet test --no-restore --verbosity normal
+      # TODO: replace with the one above when tests divided by test categories
+      # - name: API full tests
+      #   run: dotnet test --no-restore --verbosity normal --filter TestCategory=UIFullTests
+      # - name: UI full test
+      #   run: dotnet test --no-restore --verbosity normal --filter TestCategory=APIFullTests
+
+  email-notification:
+
+    name: Inform the pipeline has passed
+    needs: automated-test-regression
+    steps:
+      - name: Send email notification to QAs only
+      # TODO: integrate with team's communicator to send notifications there
